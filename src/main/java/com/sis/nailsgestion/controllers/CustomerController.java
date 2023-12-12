@@ -69,4 +69,11 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.findCustomersByArrangement(description), HttpStatus.OK);
     }
 
+
+    @GetMapping("/customers/searchByRangeDates")
+
+    public ResponseEntity<List<CustomerDto>> findCustomersByDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return new ResponseEntity<>(customerService.findCustomersByDateRange(startDate, endDate), HttpStatus.OK);
+    }
+
 }

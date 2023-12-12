@@ -82,4 +82,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDto> findCustomersByArrangement(String description) {
         return customerMapper.mapToListDto(customerRepository.findCustomersByArrangement(description));
     }
+
+    @Override
+    public List<CustomerDto> findCustomersByDateRange(Date startDate, Date endDate) {
+        return customerMapper.mapToListDto(customerRepository.findCustomersByDateRange(startDate, endDate));
+    }
 }

@@ -15,9 +15,13 @@ public interface CustomerService {
     CustomerDto createCustomer(CustomerDto customerDto);
 
     CustomerDto updateCustomer(CustomerDto customerDto, Long id);
+
     void removeCustomerById(Long id);
 
     List<CustomerDto> findCustomersByAppointmentDate(Date appointmentDate);
+
     List<CustomerDto> findCustomersByArrangement(String description);
 
+
+    List<CustomerDto> findCustomersByDateRange(Date startDate, Date endDate);
 }
