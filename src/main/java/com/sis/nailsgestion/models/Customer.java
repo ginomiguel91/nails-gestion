@@ -24,6 +24,6 @@ public class Customer implements Serializable {
     String address;
     String identification;
     String phoneNumber;
-    @ManyToMany(mappedBy = "customers", cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "customers", cascade = {CascadeType.MERGE})
     private List<SchedulerTask> schedulerTaskList;
 }

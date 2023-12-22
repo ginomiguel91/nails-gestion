@@ -23,6 +23,6 @@ public class ArrangementType implements Serializable {
     Long id;
     String description;
     Double price;
-    @ManyToMany(mappedBy = "arrangementTypes", cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "arrangementTypes", cascade = {CascadeType.MERGE})
     private List<SchedulerTask> schedulerTaskList;
 }

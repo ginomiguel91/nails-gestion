@@ -37,13 +37,13 @@ public class SchedulerTask implements Serializable {
     LocalTime hourEnd;
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "scheduler_customer",
             joinColumns = @JoinColumn(name = "scheduler_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
     private List<Customer> customers;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "scheduler_arrangement",
             joinColumns = @JoinColumn(name = "scheduler_id"),
             inverseJoinColumns = @JoinColumn(name = "arrangement_id")

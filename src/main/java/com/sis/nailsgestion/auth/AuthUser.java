@@ -4,10 +4,13 @@ import com.sis.nailsgestion.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.util.Collection;
 
 public class AuthUser extends User implements UserDetails {
 
+    @Serial
+    private static final long serialVersionUID = -136496211589263930L;
     private final User user;
 
     public AuthUser(User user) {
