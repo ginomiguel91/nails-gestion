@@ -26,6 +26,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -60,7 +63,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable
                 )
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults()) // Habilita CORS config por defecto
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(mvc.pattern("/error/**")).permitAll();
                     auth.requestMatchers(mvc.pattern("/api/auth/**")).permitAll();
@@ -94,5 +97,23 @@ public class SecurityConfig {
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
+    }
+
+
+
+    /* Configuración de cors para Angular */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:4200"); // Reemplaza con la URL de tu aplicación Angular
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
