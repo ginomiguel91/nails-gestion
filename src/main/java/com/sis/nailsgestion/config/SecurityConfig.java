@@ -31,6 +31,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -67,6 +69,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(mvc.pattern("/error/**")).permitAll();
                     auth.requestMatchers(mvc.pattern("/api/auth/**")).permitAll();
+                    auth.requestMatchers(mvc.pattern("/api/arrangements")).permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -105,7 +108,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:4200"); // Reemplaza con la URL de tu aplicación Angular
+//        configuration.addAllowedOrigin("http://localhost:4200"); // Reemplaza con la URL de tu aplicación Angular
+        configuration.setAllowedOrigins(Arrays.asList(
+                "https://nails-gestion.netlify.app",
+                "http://localhost:4200" // Permite solicitudes desde localhost
+        ));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*")); // P
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("GET");
         configuration.addAllowedMethod("POST");
